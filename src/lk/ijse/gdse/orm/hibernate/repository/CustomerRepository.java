@@ -83,4 +83,12 @@ public class CustomerRepository {
         session.close();
         return list;
     }
+    public Customer getCustomerById(int id) {
+        String sql = "SELECT C FROM Customer AS C WHERE C.id = :cus_id";
+        Query namedQuery = session.createQuery(sql);
+        namedQuery.setParameter("cus_id", id);
+        Customer customer = (Customer) namedQuery.getSingleResult();
+        session.close();
+        return customer;
+    }
 }
