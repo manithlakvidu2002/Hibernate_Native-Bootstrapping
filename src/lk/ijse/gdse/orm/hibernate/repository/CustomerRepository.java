@@ -104,4 +104,13 @@ public class CustomerRepository {
         session.close();
         return list;
     }
+    // HQL
+    public List<Customer> getCustomersHQL() {
+        String sql = "FROM Customer";
+        Query query = session.createQuery(sql);
+        List list = query.list();
+        session.close();
+        return list;
+    }
+
 }

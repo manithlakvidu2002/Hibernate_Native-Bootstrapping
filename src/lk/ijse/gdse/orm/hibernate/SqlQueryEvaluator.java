@@ -28,5 +28,13 @@ public class SqlQueryEvaluator {
         for (Order order : orders) {
             System.out.println(order);
         }
+
+        System.out.println("---------HQL Get All-------");
+
+        CustomerRepository customerRepository3 = new CustomerRepository();
+        List<Customer> customersHQL = customerRepository3.getCustomersHQL();
+        for (Customer customer : customersHQL) {
+            System.out.println(customer);
+        }
     }
 }
