@@ -2,6 +2,7 @@ package lk.ijse.gdse.orm.hibernate.repository;
 
 import lk.ijse.gdse.orm.hibernate.config.SessionFactoryConfig;
 import lk.ijse.gdse.orm.hibernate.entity.Customer;
+import lk.ijse.gdse.orm.hibernate.entity.Order;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
@@ -83,6 +84,7 @@ public class CustomerRepository {
         session.close();
         return list;
     }
+    // JPQL Where
     public Customer getCustomerById(int id) {
         String sql = "SELECT C FROM Customer AS C WHERE C.id = :cus_id";
         Query namedQuery = session.createQuery(sql);
@@ -90,5 +92,16 @@ public class CustomerRepository {
         Customer customer = (Customer) namedQuery.getSingleResult();
         session.close();
         return customer;
+    }
+    public List<Order> getOrdersByCustomerId(int id) {
+        String sql = "SELECT O FROM Order AS O\n" +
+                "INNER JOIN Customer AS C\n" +
+                "ON O.customer.id = C.id\n" +
+                "WHERE O.customer.id = :cus_id";
+        Query query = session.createQuery(sql);
+        query.setParameter("cus_id", id);
+        List list = query.list();
+        session.close();
+        return list;
     }
 }

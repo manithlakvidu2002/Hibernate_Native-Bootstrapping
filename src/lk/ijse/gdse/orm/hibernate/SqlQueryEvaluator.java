@@ -1,6 +1,7 @@
 package lk.ijse.gdse.orm.hibernate;
 
 import lk.ijse.gdse.orm.hibernate.entity.Customer;
+import lk.ijse.gdse.orm.hibernate.entity.Order;
 import lk.ijse.gdse.orm.hibernate.repository.CustomerRepository;
 
 import java.util.List;
@@ -19,5 +20,13 @@ public class SqlQueryEvaluator {
         CustomerRepository customerRepository1 = new CustomerRepository();
         Customer customerById = customerRepository1.getCustomerById(1);
         System.out.println(customerById);
+
+        System.out.println("---------JPQL JOIN-------");
+
+        CustomerRepository customerRepository2 = new CustomerRepository();
+        List<Order> orders = customerRepository2.getOrdersByCustomerId(1);
+        for (Order order : orders) {
+            System.out.println(order);
+        }
     }
 }
