@@ -4,6 +4,9 @@ import lk.ijse.gdse.orm.hibernate.config.SessionFactoryConfig;
 import lk.ijse.gdse.orm.hibernate.entity.Customer;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
+
+import java.util.List;
 
 public class CustomerRepository {
 
@@ -71,5 +74,13 @@ public class CustomerRepository {
             e.printStackTrace();
             return false;
         }
+    }
+
+    public List<Customer> getAllCustomerJPQL() {
+        String sql = "SELECT C FROM Customer AS C";
+        Query query = session.createQuery(sql);
+        List list = query.list();
+        session.close();
+        return list;
     }
 }
